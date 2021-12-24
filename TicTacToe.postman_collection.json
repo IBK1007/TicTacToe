@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"playerName\":Ilan\n}",
+					"raw": "{\n    \"playerName\": \"David\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/game/join",
+					"raw": "http://localhost:8080/game/create",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -28,7 +28,7 @@
 					"port": "8080",
 					"path": [
 						"game",
-						"join"
+						"create"
 					]
 				}
 			},
@@ -41,7 +41,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"playerName\":Ilan\n}",
+					"raw": "{\n    \"gameId\":3,\n    \"playerName\":\"Ilan\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"gameId\":0,\n    \"playerName\":\"Ilan\",\n    \"x\":0,\n    \"y\":2\n}",
+					"raw": "{\n    \"gameId\":0,\n    \"playerName\":\"David\",\n    \"x\":0,\n    \"y\":2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +134,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"gameStatus\":\"ALL\"\n}",
+					"raw": "{\n    \"gameId\":\"0\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,7 +142,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/game/gamesByType",
+					"raw": "http://localhost:8080/game/gameById",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -150,7 +150,7 @@
 					"port": "8080",
 					"path": [
 						"game",
-						"gamesByType"
+						"gameById"
 					]
 				}
 			},
