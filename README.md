@@ -37,7 +37,9 @@ body:{
     }
 
 Game by id:
-GET - http://localhost:8080/game/gameById
+The gameId can be pass either by params or body 
+GET - http://localhost:8080/game/gameById/:gameId
 body:{
     "gameId":"0"
     }
+    
