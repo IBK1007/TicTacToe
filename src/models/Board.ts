@@ -7,7 +7,7 @@ export class Board {
         this.grid = new Array(3).fill(0).map(() => new Array(3).fill(0))
         this.turn = 1
     }
-    updateBoard(x: number, y: number, playerIndex: number): MoveStatus {
+    updateBoard = (x: number, y: number, playerIndex: number): MoveStatus => {
 
         if (x < 0 || x > 3 || y < 0 || y > 3)
             return MoveStatus.OutOfBound

@@ -1,10 +1,9 @@
-import * as DAL from '../DAL/index'
+import * as DAL from '../repositories/game.repository'
 import { Request, Response } from 'express';
 import { FinalStatus, GameStatus } from '../models/States'
 import { MoveStatus } from '../models/States';
-import { ICustomRequest } from './game.interfaces';
+import { IGameRequest } from './game.interface';
 import { checkBoard } from '../utils/boardChecker'
-import { Game } from '@/models/Game';
 
 export const getGames = (req: Request, res: Response) => {
   const status = req.body.gameStatus
@@ -17,18 +16,18 @@ export const getGames = (req: Request, res: Response) => {
   return res.status(200).json(filteredGames)
 };
 
-export const getGameById = (req: ICustomRequest, res: Response) => {
+export const getGameById = (req: IGameRequest, res: Response) => {
   const game = req.game
   return res.status(200).json(game)
 }
 
-export const createGame = (req: ICustomRequest, res: Response) => {
+export const createGame = (req: IGameRequest, res: Response) => {
   const { playerName } = req.body
   const game = DAL.createGame(playerName)
   return res.status(200).json(game.id)
 }
 
-export const joinGame = (req: ICustomRequest, res: Response) => {
+export const joinGame = (req: IGameRequest, res: Response) => {
   const { playerName } = req.body
   const game = req.game
 
@@ -43,7 +42,7 @@ export const joinGame = (req: ICustomRequest, res: Response) => {
   return res.status(404).send('Game not found')
 }
 
-export const makeMove = (req: ICustomRequest, res: Response) => {
+export const makeMove = (req: IGameRequest, res: Response) => {
   const { playerName, x, y } = req.body;
   const game = req.game
 
@@ -55,7 +54,8 @@ export const makeMove = (req: ICustomRequest, res: Response) => {
     const updateStatus = game.board.updateBoard(x, y, playerIndex)
 
     if (updateStatus !== MoveStatus.Success) {
-      return handleMoveStatusError(updateStatus, res)
+      const { status, message } = handleMoveStatusError(updateStatus)
+      return res.status(status).send(message)
     }
 
     const statusCheck = checkBoard(game)
@@ -70,15 +70,15 @@ export const makeMove = (req: ICustomRequest, res: Response) => {
   }
 }
 
-const handleMoveStatusError = (moveStatus: MoveStatus, res: Response) => {
+const handleMoveStatusError = (moveStatus: MoveStatus) => {
   switch (moveStatus) {
     case MoveStatus.CaseBusy:
-      return res.status(400).send('Case already choosen')
+      return { status: 400, message: 'Case already choosen' }
     case MoveStatus.OutOfBound:
-      return res.status(400).send('Place out of bounds')
+      return { status: 400, message: 'Place out of bounds' }
     case MoveStatus.WrongTurn:
-      return res.status(400).send('Not player turn')
+      return { status: 400, message: 'Not player turn' }
     default:
-      return res.status(404).send('Error in board update')
+      return { status: 404, message: 'Error in board update' }
   }
 }

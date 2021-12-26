@@ -10,9 +10,9 @@ export class Game {
     status: GameStatus;
     winnerStatus: FinalStatus
 
-
-    constructor(creatorPlayerName: string, gameId: number) {
-        this.id = gameId
+    static creatorIndex = 0
+    constructor(creatorPlayerName: string) {
+        this.id = Game.creatorIndex++
         this.playerOne = creatorPlayerName;
         this.playerTwo = "";
         this.board = new Board()
