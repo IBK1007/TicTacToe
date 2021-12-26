@@ -1,7 +1,7 @@
 import { Game } from "./Game";
 
 export class GameManager {
-    games: Map<number, Game>,
+    games: Map<number, Game>
     gamesHistory: Map<number, Game>
 
     constructor() {
@@ -11,7 +11,7 @@ export class GameManager {
     }
     getGame = (id: number) => {
         const game = this.games.get(id)
-        return game ?? null
+        return game ?? undefined
     }
     getAllGames = () => {
         return this.games
